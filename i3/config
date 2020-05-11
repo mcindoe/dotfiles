@@ -11,6 +11,8 @@ set $text-colour            #F3F4F5
 set $inactive-test-colour   #676E7D
 set $urgent-bg-colour       #E53935
 
+disable_randr15 yes
+
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block.
 font pango: Roberto 10
@@ -21,7 +23,11 @@ focus_follows_mouse no
 # Picom for transparency
 exec --no-startup-id picom -b --config ~/.config/picom/picom.conf
 
-exec ~/.screenlayout/screenlayout.sh
+# Set wallpaper
+exec --no-startup-id feh --bg-fill ~/Pictures/wallpaper.jpg
+
+# Start polybar
+# polybar top &
 
 # set UK keyboard layout
 exec setxkbmap gb
@@ -128,8 +134,11 @@ bindsym $mod+Shift+b exec --no-startup-id firefox
 # launch text editor
 bindsym $mod+Shift+w exec --no-startup-id subl
 
+# rofi logout script
+bindsym $mod+shift+e exec ~/.bin/rofi-logout 
+
 # exit i3 (logs you out of your X session)
-bindsym $mod+shift+e exec --no-startup-id "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# bindsym $mod+shift+e exec --no-startup-id "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
@@ -149,5 +158,5 @@ bindsym $mod+Return exec --no-startup-id gnome-terminal;focus
 # popups during fullscreen mode
 popup_during_fullscreen smart
 
-# start terminal on secondary monitor 
-exec i3-msg 'workspace 6; exec /usr/bin/thunderbird;'
+# start thunderbird on secondary monitor; focus on primary workspace
+exec i3-msg 'workspace 6; exec /usr/bin/thunderbird; workspace 1 focus'
