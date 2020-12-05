@@ -13,6 +13,7 @@ Plug 'terryma/vim-smooth-scroll'
 Plug 'jiangmiao/auto-pairs'
 Plug 'xuhdev/vim-latex-live-preview'
 Plug 'dense-analysis/ale'
+Plug 'psf/black', { 'branch': 'stable' }
 
 " http://github.com/ycm-core/YouCompleteMe
 " http://derekmolloy.ie/hello-world-introduction-to-cmake
@@ -122,6 +123,8 @@ endfun
 command! TrimWhitespace call TrimWhitespace()
 :noremap <Leader>t :call TrimWhitespace()<CR>
 
+nnoremap <Leader>b :!/usr/bin/black -l 80 expand('%:p')<CR>
+
 " Map Caps Lock key to escape key when entering vim; reverse when leaving vim
 au VimEnter * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 au VimLeave * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
@@ -129,3 +132,7 @@ au VimLeave * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
 " Set column at specified character count, e.g. Python 80-character line
 " suggestion
 set colorcolumn=73,80
+
+" Black config
+let g:black_linelength=79
+
