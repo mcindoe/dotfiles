@@ -12,6 +12,7 @@ Plug 'lervag/vimtex'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'jiangmiao/auto-pairs'
 Plug 'xuhdev/vim-latex-live-preview'
+Plug 'dense-analysis/ale'
 
 " http://github.com/ycm-core/YouCompleteMe
 " http://derekmolloy.ie/hello-world-introduction-to-cmake
@@ -79,7 +80,7 @@ set undodir=$HOME/.vim/undodir
 " let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " YCM automatic help - found it a bit invasive so disabled
-let g:ycm_auto_trigger = 0
+" let g:ycm_auto_trigger = 1
 
 " Better key bindings for UltiSnips expand trigger
 " let g:UltiSnipsExpandTrigger = "<tab>"
@@ -110,16 +111,16 @@ noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 4, 3)<CR>
 " Copy to system clipboard
 set clipboard=unnamedplus
 
-" Remove all trailing whitespace
+" Define a function to remove all trailing whitespace
 fun! TrimWhitespace()
     let l:save = winsaveview()
     keeppatterns %s/\s\+$//e
     call winrestview(l:save)
 endfun
 
-" Call function for previous whitepsace command
+" Map TrimWhiteSpace() function to a key binding
 command! TrimWhitespace call TrimWhitespace()
-:noremap <Leader>5 :call TrimWhitespace()<CR>
+:noremap <Leader>t :call TrimWhitespace()<CR>
 
 " Map Caps Lock key to escape key when entering vim; reverse when leaving vim
 au VimEnter * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
@@ -127,4 +128,4 @@ au VimLeave * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
 
 " Set column at specified character count, e.g. Python 80-character line
 " suggestion
-" set colorcolumn=80
+set colorcolumn=73,80
