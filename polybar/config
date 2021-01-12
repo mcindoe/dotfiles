@@ -1,100 +1,140 @@
-[colours]
-fg = #FFFFFF
-fgdis = #00696969
-bgtime = #00dba0bb
-bgcoreinfo = #0092aee8
-bgwlan = #00b3c9af
-bgi3 = #00a78371
-bgi3f = #00c9a593
-bgdis = #00cec388
-bgtray = #00b7c993
-alert = #f99157
-tp = #00000000
+[colors]
+;background = ${xrdb:color0:#222}
+background = #222
+background-alt = #444
+;foreground = ${xrdb:color7:#222}
+foreground = #dfdfdf
+foreground-alt = #555
+primary = #ffb52a
+secondary = #e60053
+alert = #bd2c40
 
-[bar/top]
-monitor = HDMI-0
-width = 90%
-height = 30
-offset-y = 10
-override-redirect = true
+[bar/topbar]
+monitor = ${env:MONITOR:}
+width = 100%
+height = 27
+;offset-x = 1%
+;offset-y = 1%
+radius = 6.0
+fixed-center = false
 
-background = ${colours.tp}
-foreground = ${colours.fg}
+background = ${colors.background}
+foreground = ${colors.foreground}
 
-bottom = false
+line-size = 3
+line-color = #f00
 
-# border-top-color = ${colours.tp}
-# border-left-color = ${colours.tp}
-# border-right-color = ${colours.tp}
-# border-top-size = 0
-# border-left-size = 0
-# border-right-size = 0
+border-size = 4
+border-color = #00000000
 
-module-margin-left = 0
-module-margin-right = 0
-padding-left = 20
-padding-right = 0
-padding-bottom = 50
+padding-left = 0
+padding-right = 2
 
-font-0 = Roboto Mono:weight=bold;1
-font-1 = RobotoMono Nerd Font:pixelsize=10;1
-font-2 = Font Awesome 4:pixelsize=10;1
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = fixed:pixelsize=10;1
+font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-2 = siji:pixelsize=10;1
 
 modules-left = i3
-modules-right = time
-# modules-right = i3
-# modules-right = i3 dis
-wm-restack = i3
+;modules-center = mpd
+modules-right = memory cpu time 
 
-# tray-position = right
-# tray-background = ${colours.bgtray}
+tray-position = right
+tray-padding = 2
+;tray-background = #0063ff
 
+;wm-restack = bspwm
+;wm-restack = i3
 
-[module/time]
-type = internal/date
-interval = 1
+;override-redirect = true
 
-time = "%d-%m %H:%M "
-# format-prefix = "  "
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
 
-format-background = ${colours.bgtime}
+;scroll-up = i3wm-wsnext
+;scroll-down = i3wm-wsprev
 
-label = %time%
-# format-margin = 1
-
-offset-y = 100
+cursor-click = pointer
+cursor-scroll = ns-resize
 
 [module/i3]
 type = internal/i3
 format = <label-state> <label-mode>
-pin-workspaces=true
+index-sort = true
+wrapping-scroll = false
 
-ws-icon-0 = 1;1
-ws-icon-1 = 2;2
-ws-icon-2 = 3;3
-ws-icon-3 = 4;4
-ws-icon-4 = 5;5
-ws-icon-5 = 6;6
-ws-icon-6 = 7;7
-ws-icon-7 = 8;8
-ws-icon-8 = 9;9
-ws-icon-9 = 10;0
-ws-icon-default = +
+; Only show workspaces on the same output as the bar
+pin-workspaces = true
 
-label-mode-padding = 0
-label-mode-foreground = ${colours.fg}
-label-mode-background = ${colours.alert}
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
 
-label-focused = %icon%
-label-focused-background = ${colours.bgi3f}
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-background = ${colors.background-alt}
+label-focused-underline= ${colors.primary}
 label-focused-padding = 2
 
-label-unfocused = %icon%
-label-unfocused-background = ${colours.bgi3}
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
 label-unfocused-padding = 2
 
-label-urgent = %icon%
-label-urgent-background = ${colours.alert}
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 
-format-margin = 1
+; Separator in between workspaces
+; label-separator = |
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix = "CPU:"
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #f90000
+label = %percentage:2%%
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = "Mem:"
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #4bffdc
+label = %percentage_used%%
+
+[module/time]
+type = internal/date
+interval = 5
+
+time = %H:%M
+time-alt = %H:%M:%S
+
+format-prefix = 
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #0a6cf5
+
+label = %time%
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+;pseudo-transparency = false
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+; vim:ft=dosini

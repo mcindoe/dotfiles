@@ -12,8 +12,9 @@ Plug 'lervag/vimtex'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'jiangmiao/auto-pairs'
 Plug 'xuhdev/vim-latex-live-preview'
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
 Plug 'psf/black', { 'branch': 'stable' }
+Plug 'fisadev/vim-isort'
 
 " http://github.com/ycm-core/YouCompleteMe
 " http://derekmolloy.ie/hello-world-introduction-to-cmake
@@ -56,7 +57,7 @@ colorscheme gruvbox
 let g:netrw_browse_split = 4
 let g:netrw_winsize = 20
 
-set scrolloff=3 " Set minimum number of lines present at top or bottom of file when scrolling 
+set scrolloff=3 " Set minimum number of lines present at top or bottom of file when scrolling
 set sidescrolloff=5 " Similar to the above but for columns
 
 " Swap file management
@@ -79,6 +80,9 @@ set undodir=$HOME/.vim/undodir
 " let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 " let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 " let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:ycm_confirm_extra_conf=1
+let g:ycm_always_populate_location_list=1
+nnoremap <Leader>f :YcmCompleter FixIt<Enter>
 
 " YCM automatic help - found it a bit invasive so disabled
 " let g:ycm_auto_trigger = 1
@@ -89,7 +93,7 @@ set undodir=$HOME/.vim/undodir
 " let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " NerdTree config
-nnoremap <Leader>f :NERDTreeToggle<Enter>
+nnoremap <Leader>t :NERDTreeToggle<Enter>
 let NERDTreeQuitOnOpen = 1
 
 set number relativenumber
@@ -123,16 +127,24 @@ endfun
 command! TrimWhitespace call TrimWhitespace()
 :noremap <Leader>t :call TrimWhitespace()<CR>
 
-nnoremap <Leader>b :!/usr/bin/black -l 80 expand('%:p')<CR>
-
 " Map Caps Lock key to escape key when entering vim; reverse when leaving vim
 au VimEnter * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
 au VimLeave * silent! !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_Lock'
 
 " Set column at specified character count, e.g. Python 80-character line
 " suggestion
-set colorcolumn=73,80
+" set colorcolumn=73,80
+set colorcolumn=120
 
 " Black config
 let g:black_linelength=79
+nnoremap <Leader>b :Black<CR>
 
+" vim-isort config
+" let g:multi_line_output=7
+" let g:force_single_line=1
+nnoremap <Leader>s :Isort<CR>
+let g:vim_isort_config_overrides = {'force_single_line': 1}
+
+" disable auto-detection of virtualenvironments
+let g:ale_virtualenv_dir_names = []

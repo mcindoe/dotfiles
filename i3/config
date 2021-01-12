@@ -24,10 +24,10 @@ focus_follows_mouse no
 exec --no-startup-id picom -b --config ~/.config/picom/picom.conf
 
 # Set wallpaper
-exec --no-startup-id feh --bg-fill ~/Pictures/wallpaper.jpg
+exec --no-startup-id feh --bg-fill ~/Pictures/dark-fish.png ~/Pictures/dark-purple.png
 
-# Start polybar
-# polybar top &
+# launch polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # set UK keyboard layout
 exec setxkbmap gb
@@ -135,7 +135,9 @@ bindsym $mod+Shift+b exec --no-startup-id firefox
 bindsym $mod+Shift+w exec --no-startup-id subl
 
 # rofi logout script
-bindsym $mod+shift+e exec ~/.bin/rofi-logout 
+for_window [class="Oblogout"] fullscreen
+bindsym $mod+shift+e exec oblogout; 
+# bindsym $mod+shift+e exec ~/.bin/rofi-logout 
 
 # exit i3 (logs you out of your X session)
 # bindsym $mod+shift+e exec --no-startup-id "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
@@ -159,4 +161,6 @@ bindsym $mod+Return exec --no-startup-id gnome-terminal;focus
 popup_during_fullscreen smart
 
 # start thunderbird on secondary monitor; focus on primary workspace
-exec i3-msg 'workspace 6; exec /usr/bin/thunderbird; workspace 1 focus'
+# exec i3-msg 'workspace 6; exec /usr/bin/thunderbird; workspace 1 focus'
+exec i3-msg 'workspace 6; exec /usr/bin/thunderbird; workspace 1; focus'
+
