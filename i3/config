@@ -151,6 +151,10 @@ bindsym $mod+Shift+c reload
 # kill focused window
 bindsym $mod+Shift+q kill
 
+# disable mouse resizing
+bindsym --border button1 nop
+bindsym --whole-window $mod+button1 nop
+
 bindsym Mod1+Ctrl+Right workspace next
 bindsym Mod1+Ctrl+Left workspace prev
 
